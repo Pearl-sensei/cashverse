@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pearl Bank - Mobile Banking App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+    <div class="phone-container">
+        <div class="phone-screen">
+            <!-- Theme Toggle -->
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">🌙</span>
+            </div>
+
+            <!-- Home Page -->
+            <div class="page active" id="home-page">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-left">
+                        <span>9:41</span>
+                    </div>
+                    <div class="status-right">
+                        <span>📶</span>
+                        <span>📶</span>
+                        <span>🔋</span>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="header animate-fade-in">
+                    <div class="greeting">
+                        <h1>Hi, Pearl!</h1>
+                        <p>Good morning ✨</p>
+                    </div>
+                    <div class="profile-pic" onclick="showPage('profile')">
+                        💎
+                    </div>
+                </div>
+
+                <!-- Balance Card -->
+                <div class="balance-card animate-fade-in">
+                    <h2>Total Balance</h2>
+                    <div class="balance-amount" id="balance">$12,547.89</div>
+                    <div class="card-actions">
+                        <button class="card-action" onclick="showPage('transfer')">Send</button>
+                        <button class="card-action" onclick="showPage('receive')">Receive</button>
+                        <button class="card-action" onclick="showPage('topup')">Top Up</button>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions animate-fade-in">
+                    <h2 class="section-title">Quick Actions</h2>
+                    <div class="actions-grid">
+                        <div class="action-item" onclick="showPage('transfer')">
+                            <div class="icon">💸</div>
+                            <div class="label">Transfer</div>
+                        </div>
+                        <div class="action-item" onclick="showPage('bills')">
+                            <div class="icon">📄</div>
+                            <div class="label">Bills</div>
+                        </div>
+                        <div class="action-item" onclick="showPage('savings')">
+                            <div class="icon">🏦</div>
+                            <div class="label">Savings</div>
+                        </div>
+                        <div class="action-item" onclick="showPage('cards')">
+                            <div class="icon">💳</div>
+                            <div class="label">Cards</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transactions -->
+                <div class="transactions animate-fade-in">
+                    <div class="transaction-header">
+                        <h2 class="section-title">Recent Transactions</h2>
+                        <a href="#" class="view-all" onclick="showPage('history')">View All</a>
+                    </div>
+                    <div class="transaction-list" id="transactionList">
+                        <!-- Transactions will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Page -->
+            <div class="page" id="transfer-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Transfer Money</div>
+                </div>
+                <div class="page-content">
+                    <div class="recent-contacts">
+                        <h3 class="section-title">Recent Contacts</h3>
+                        <div class="contacts-grid">
+                            <div class="contact-item" onclick="selectContact('Ole', '👩')">
+                                <div class="contact-avatar">👩</div>
+                                <div class="contact-name">Ole</div>
+                            </div>
+                            <div class="contact-item" onclick="selectContact('Hope', '👨')">
+                                <div class="contact-avatar">👨</div>
+                                <div class="contact-name">Hope</div>
+                            </div>
+                            <div class="contact-item" onclick="selectContact('Mellow', '👩‍💼')">
+                                <div class="contact-avatar">👩‍💼</div>
+                                <div class="contact-name">Mellow</div>
+                            </div>
+                            <div class="contact-item" onclick="selectContact('shreeya', '👨‍💻')">
+                                <div class="contact-avatar">👨‍💻</div>
+                                <div class="contact-name">shreeya</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="transferForm">
+                        <div class="form-group">
+                            <label class="form-label">Recipient</label>
+                            <input type="text" class="form-input" id="recipient" placeholder="Enter name or account number" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Amount</label>
+                            <input type="number" class="form-input" id="amount" placeholder="$0.00" step="0.01" required>
+                        </div>
+                        <div class="amount-buttons">
+                            <button type="button" class="amount-btn" onclick="setAmount(50)">$50</button>
+                            <button type="button" class="amount-btn" onclick="setAmount(100)">$100</button>
+                            <button type="button" class="amount-btn" onclick="setAmount(250)">$250</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Message (Optional)</label>
+                            <input type="text" class="form-input" id="message" placeholder="What's this for?">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Money</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cards Page -->
+            <div class="page" id="cards-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">My Cards</div>
+                </div>
+                <div class="page-content">
+                    <div class="card-grid">
+                        <div class="bank-card">
+                            <div class="card-logo">💳</div>
+                            <div class="card-type">Pearl Debit Card</div>
+                            <div class="card-number">•••• •••• •••• 1234</div>
+                            <div class="card-details">
+                                <div>
+                                    <div class="card-holder">PEARL SMITH</div>
+                                </div>
+                                <div>
+                                    <div class="card-expiry">12/26</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bank-card" style="background: linear-gradient(135deg, #333, #666);">
+                            <div class="card-logo">💎</div>
+                            <div class="card-type">Pearl Premium</div>
+                            <div class="card-number">•••• •••• •••• 5678</div>
+                            <div class="card-details">
+                                <div>
+                                    <div class="card-holder">PEARL SMITH</div>
+                                </div>
+                                <div>
+                                    <div class="card-expiry">08/27</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="showNotification('Card management coming soon!')">Add New Card</button>
+                </div>
+            </div>
+
+            <!-- Bills Page -->
+            <div class="page" id="bills-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Bills & Payments</div>
+                </div>
+                <div class="page-content">
+                    <div class="bills-grid">
+                        <div class="bill-item">
+                            <div class="bill-icon utilities">⚡</div>
+                            <div class="bill-details">
+                                <div class="bill-name">Electricity</div>
+                                <div class="bill-due">Due: Jan 25</div>
+                            </div>
+                            <div>
+                                <div class="bill-amount">$125.50</div>
+                                <div class="bill-status pending">Pending</div>
+                            </div>
+                        </div>
+                        <div class="bill-item">
+                            <div class="bill-icon internet">🌐</div>
+                            <div class="bill-details">
+                                <div class="bill-name">Internet</div>
+                                <div class="bill-due">Due: Jan 20</div>
+                            </div>
+                            <div>
+                                <div class="bill-amount">$65.00</div>
+                                <div class="bill-status paid">Paid</div>
+                            </div>
+                        </div>
+                        <div class="bill-item">
+                            <div class="bill-icon mobile">📱</div>
+                            <div class="bill-details">
+                                <div class="bill-name">Mobile Plan</div>
+                                <div class="bill-due">Due: Jan 30</div>
+                            </div>
+                            <div>
+                                <div class="bill-amount">$45.99</div>
+                                <div class="bill-status overdue">Overdue</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="payBills()">Pay Selected Bills</button>
+                </div>
+            </div>
+
+            <!-- History/Transactions Page -->
+            <div class="page" id="history-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Transaction History</div>
+                </div>
+                <div class="page-content">
+                    <div class="form-group">
+                        <select class="form-select" id="filterSelect" onchange="filterTransactions()">
+                            <option value="all">All Transactions</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expenses</option>
+                            <option value="transfer">Transfers</option>
+                        </select>
+                    </div>
+                    <div class="transaction-list" id="allTransactionList">
+                        <!-- All transactions will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div class="page" id="profile-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Profile</div>
+                </div>
+                <div class="page-content">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div class="profile-pic" style="width: 80px; height: 80px; font-size: 32px; margin: 0 auto 15px;">💎</div>
+                        <h2>Pearl Smith</h2>
+                        <p style="color: var(--text-muted);">Premium Member</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" value="Pearl Smith" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" value="pearl.smith@email.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-input" value="+1 (555) 123-4567" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Account Number</label>
+                        <input type="text" class="form-input" value="****1234" readonly>
+                    </div>
+                    
+                    <button class="btn btn-secondary" onclick="showNotification('Profile editing coming soon!')">Edit Profile</button>
+                </div>
+            </div>
+
+            <!-- Receive Money Page -->
+            <div class="page" id="receive-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Receive Money</div>
+                </div>
+                <div class="page-content">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="width: 200px; height: 200px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 120px;">
+                            📱
+                        </div>
+                        <h3>QR Code Payment</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">Show this code to send money to your account</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Account Details</label>
+                        <input type="text" class="form-input" value="Pearl Bank - 1234567890" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Request Amount (Optional)</label>
+                        <input type="number" class="form-input" id="requestAmount" placeholder="$0.00" step="0.01">
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="generateQR()">Generate QR Code</button>
+                    <button class="btn btn-secondary" onclick="shareDetails()">Share Account Details</button>
+                </div>
+            </div>
+
+            <!-- Top Up Page -->
+            <div class="page" id="topup-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Top Up Account</div>
+                </div>
+                <div class="page-content">
+                    <div class="form-group">
+                        <label class="form-label">Top Up Method</label>
+                        <select class="form-select" id="topupMethod">
+                            <option value="bank">Bank Transfer</option>
+                            <option value="card">Debit/Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-input" id="topupAmount" placeholder="$0.00" step="0.01" required>
+                    </div>
+                    <div class="amount-buttons">
+                        <button type="button" class="amount-btn" onclick="setTopUpAmount(100)">$100</button>
+                        <button type="button" class="amount-btn" onclick="setTopUpAmount(250)">$250</button>
+                        <button type="button" class="amount-btn" onclick="setTopUpAmount(500)">$500</button>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="processTopUp()">Add Money</button>
+                </div>
+            </div>
+
+            <!-- Savings Page -->
+            <div class="page" id="savings-page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('home')">←</button>
+                    <div class="page-title">Savings</div>
+                </div>
+                <div class="page-content">
+                    <div class="balance-card" style="margin: 0 0 30px 0;">
+                        <h2>Savings Balance</h2>
+                        <div class="balance-amount">$5,280.45</div>
+                        <div class="card-actions">
+                            <button class="card-action" onclick="showNotification('Adding to savings...')">Add Money</button>
+                            <button class="card-action" onclick="showNotification('Withdrawing from savings...')">Withdraw</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Savings Goal</label>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 15px; border: 1px solid var(--border);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span>Dream Vacation</span>
+                                <span>$5,280 / $10,000</span>
+                            </div>
+                            <div style="background: var(--bg-secondary); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: linear-gradient(45deg, var(--primary-pink), var(--secondary-pink)); height: 100%; width: 52.8%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="showNotification('Setting up new savings goal...')">Create New Goal</button>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-item active" onclick="navigateTo('home')">
+                    <div class="icon">🏠</div>
+                    <div class="label">Home</div>
+                </div>
+                <div class="nav-item" onclick="navigateTo('cards')">
+                    <div class="icon">💳</div>
+                    <div class="label">Cards</div>
+                </div>
+                <div class="nav-item" onclick="navigateTo('transfer')">
+                    <div class="icon">💸</div>
+                    <div class="label">Transfer</div>
+                </div>
+                <div class="nav-item" onclick="navigateTo('history')">
+                    <div class="icon">📊</div>
+                    <div class="label">History</div>
+                </div>
+                <div class="nav-item" onclick="navigateTo('profile')">
+                    <div class="icon">👤</div>
+                    <div class="label">Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
