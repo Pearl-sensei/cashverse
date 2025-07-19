@@ -20,7 +20,6 @@ A modern mobile banking interface built with HTML and CSS. cashverse offers a cl
 ## 🚀 Live Demo
 
 👉 [View it on GitHub Pages](https://Pearl-sensei.github.io/cashverse)  
-*(Replace the link with your actual deployed link)*
 
 ---
 
@@ -30,5 +29,5 @@ To run this project locally:
 
 ```bash
 git clone https://github.com/Pearl-sensei/cashverse.git
-cd pearl-pay
+cd cashverse
 open index.html  # or just double-click it
