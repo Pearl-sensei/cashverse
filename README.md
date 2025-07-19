@@ -19,7 +19,7 @@ A modern mobile banking interface built with HTML and CSS. cashverse offers a cl
 
 ## 🚀 Live Demo
 
-👉 [View it on GitHub Pages](https://github.com/Pearl-sensei.github.io/cashverse)  
+👉 [View it on GitHub Pages](https://pearl-sensei.github.io/cashverse/)  
 
 ---
 
